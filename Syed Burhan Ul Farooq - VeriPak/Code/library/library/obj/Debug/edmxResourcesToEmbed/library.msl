@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="libraryModelStoreContainer" CdmEntityContainer="libraryEntities">
+    <EntitySetMapping Name="books">
+      <EntityTypeMapping TypeName="libraryModel.book">
+        <MappingFragment StoreEntitySet="books">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="cover_picture" ColumnName="cover_picture" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="publish_year" ColumnName="publish_year" />
+          <ScalarProperty Name="isbn" ColumnName="isbn" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="borrowhistories">
+      <EntityTypeMapping TypeName="libraryModel.borrowhistory">
+        <MappingFragment StoreEntitySet="borrowhistory">
+          <ScalarProperty Name="checkin_date_return" ColumnName="checkin_date_return" />
+          <ScalarProperty Name="checkin_date" ColumnName="checkin_date" />
+          <ScalarProperty Name="checkout_date" ColumnName="checkout_date" />
+          <ScalarProperty Name="nationalid" ColumnName="nationalid" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="borrower" ColumnName="borrower" />
+          <ScalarProperty Name="bookid" ColumnName="bookid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lockbooks">
+      <EntityTypeMapping TypeName="libraryModel.lockbook">
+        <MappingFragment StoreEntitySet="lockbook">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="bookid" ColumnName="bookid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

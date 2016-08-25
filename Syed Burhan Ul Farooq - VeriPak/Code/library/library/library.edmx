@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="libraryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="libraryModelStoreContainer">
+          <EntitySet Name="books" EntityType="libraryModel.Store.books" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="borrowhistory" EntityType="libraryModel.Store.borrowhistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="lockbook" EntityType="libraryModel.Store.lockbook" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="books">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="isbn" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="publish_year" Type="int" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="cover_picture" Type="varchar" Nullable="false" />
+          <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="borrowhistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bookid" Type="int" Nullable="false" />
+          <Property Name="borrower" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="mobile" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="nationalid" Type="varchar" Nullable="false" MaxLength="11" />
+          <Property Name="checkout_date" Type="datetime" Nullable="false" />
+          <Property Name="checkin_date" Type="datetime" Nullable="false" />
+          <Property Name="checkin_date_return" Type="datetime" />
+        </EntityType>
+        <EntityType Name="lockbook">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="libraryModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="libraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="books" EntityType="libraryModel.book" />
+          <EntitySet Name="borrowhistories" EntityType="libraryModel.borrowhistory" />
+          <EntitySet Name="lockbooks" EntityType="libraryModel.lockbook" />
+        </EntityContainer>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="isbn" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="publish_year" Nullable="false" />
+          <Property Type="Decimal" Name="price" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="String" Name="cover_picture" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="borrowhistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="bookid" Nullable="false" />
+          <Property Type="String" Name="borrower" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="mobile" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="nationalid" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="checkout_date" Nullable="false" />
+          <Property Type="DateTime" Name="checkin_date" Nullable="false" />
+          <Property Type="DateTime" Name="checkin_date_return" />
+        </EntityType>
+        <EntityType Name="lockbook">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Type="Int32" Name="bookid" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="libraryModelStoreContainer" CdmEntityContainer="libraryEntities">
+          <EntitySetMapping Name="books">
+            <EntityTypeMapping TypeName="libraryModel.book">
+              <MappingFragment StoreEntitySet="books">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="cover_picture" ColumnName="cover_picture" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="publish_year" ColumnName="publish_year" />
+                <ScalarProperty Name="isbn" ColumnName="isbn" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="borrowhistories">
+            <EntityTypeMapping TypeName="libraryModel.borrowhistory">
+              <MappingFragment StoreEntitySet="borrowhistory">
+                <ScalarProperty Name="checkin_date_return" ColumnName="checkin_date_return" />
+                <ScalarProperty Name="checkin_date" ColumnName="checkin_date" />
+                <ScalarProperty Name="checkout_date" ColumnName="checkout_date" />
+                <ScalarProperty Name="nationalid" ColumnName="nationalid" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="borrower" ColumnName="borrower" />
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lockbooks">
+            <EntityTypeMapping TypeName="libraryModel.lockbook">
+              <MappingFragment StoreEntitySet="lockbook">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="library">
+        <EntityTypeShape EntityType="libraryModel.book" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="libraryModel.borrowhistory" Width="1.5" PointX="2.75" PointY="0.75" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="libraryModel.lockbook" Width="1.5" PointX="4.75" PointY="0.75" Height="1.4033821614583326" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

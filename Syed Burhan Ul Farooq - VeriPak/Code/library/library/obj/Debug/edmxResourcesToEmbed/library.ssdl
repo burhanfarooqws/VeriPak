@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="libraryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="libraryModelStoreContainer">
+    <EntitySet Name="books" EntityType="libraryModel.Store.books" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="borrowhistory" EntityType="libraryModel.Store.borrowhistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="lockbook" EntityType="libraryModel.Store.lockbook" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="books">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="varchar" Nullable="false" MaxLength="1000" />
+    <Property Name="isbn" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="publish_year" Type="int" Nullable="false" />
+    <Property Name="price" Type="money" Nullable="false" />
+    <Property Name="cover_picture" Type="varchar" Nullable="false" />
+    <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="borrowhistory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="bookid" Type="int" Nullable="false" />
+    <Property Name="borrower" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="mobile" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="nationalid" Type="varchar" Nullable="false" MaxLength="11" />
+    <Property Name="checkout_date" Type="datetime" Nullable="false" />
+    <Property Name="checkin_date" Type="datetime" Nullable="false" />
+    <Property Name="checkin_date_return" Type="datetime" />
+  </EntityType>
+  <EntityType Name="lockbook">
+    <Key>
+      <PropertyRef Name="bookid" />
+    </Key>
+    <Property Name="bookid" Type="int" Nullable="false" />
+    <Property Name="username" Type="varchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+</Schema>

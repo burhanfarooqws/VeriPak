@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="libraryModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="libraryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="books" EntityType="libraryModel.book" />
+    <EntitySet Name="borrowhistories" EntityType="libraryModel.borrowhistory" />
+    <EntitySet Name="lockbooks" EntityType="libraryModel.lockbook" />
+  </EntityContainer>
+  <EntityType Name="book">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="title" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="isbn" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="publish_year" Nullable="false" />
+    <Property Type="Decimal" Name="price" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="String" Name="cover_picture" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="status" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="borrowhistory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="bookid" Nullable="false" />
+    <Property Type="String" Name="borrower" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="mobile" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nationalid" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="checkout_date" Nullable="false" />
+    <Property Type="DateTime" Name="checkin_date" Nullable="false" />
+    <Property Type="DateTime" Name="checkin_date_return" />
+  </EntityType>
+  <EntityType Name="lockbook">
+    <Key>
+      <PropertyRef Name="bookid" />
+    </Key>
+    <Property Type="Int32" Name="bookid" Nullable="false" />
+    <Property Type="String" Name="username" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>
