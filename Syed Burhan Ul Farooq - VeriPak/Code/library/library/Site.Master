@@ -28,10 +28,10 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
-            <div class="clear hideSkiplink">
+            <div class="clear hideSkiplink">                
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
-                    <Items>
-                        <asp:MenuItem NavigateUrl="~/list.aspx" Text="List"/>
+                    <Items>                        
+                        <asp:MenuItem NavigateUrl="~/list.aspx" Text="List"/>                        
                     </Items>
                 </asp:Menu>
             </div>

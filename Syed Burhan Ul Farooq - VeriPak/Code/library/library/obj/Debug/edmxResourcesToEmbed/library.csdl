@@ -4,6 +4,12 @@
     <EntitySet Name="books" EntityType="libraryModel.book" />
     <EntitySet Name="borrowhistories" EntityType="libraryModel.borrowhistory" />
     <EntitySet Name="lockbooks" EntityType="libraryModel.lockbook" />
+    <FunctionImport Name="ExceptionLoggingToDataBase">
+      <Parameter Name="ExceptionMsg" Mode="In" Type="String" />
+      <Parameter Name="ExceptionType" Mode="In" Type="String" />
+      <Parameter Name="ExceptionSource" Mode="In" Type="String" />
+      <Parameter Name="ExceptionURL" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="book">
     <Key>
@@ -26,9 +32,9 @@
     <Property Type="String" Name="borrower" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="mobile" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="nationalid" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-    <Property Type="DateTime" Name="checkout_date" Nullable="false" />
-    <Property Type="DateTime" Name="checkin_date" Nullable="false" />
-    <Property Type="DateTime" Name="checkin_date_return" />
+    <Property Type="DateTime" Name="checkout_date" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="checkin_date" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="checkin_date_return" Precision="3" />
   </EntityType>
   <EntityType Name="lockbook">
     <Key>

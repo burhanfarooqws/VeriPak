@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "library", "library\library.csproj", "{B540EDEA-1C3B-48D9-AE7A-94143506FF6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RulesTests", "RulesTests\RulesTests.csproj", "{35A63925-8085-4A38-8299-0EB59C2D3C12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{B540EDEA-1C3B-48D9-AE7A-94143506FF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B540EDEA-1C3B-48D9-AE7A-94143506FF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B540EDEA-1C3B-48D9-AE7A-94143506FF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35A63925-8085-4A38-8299-0EB59C2D3C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A63925-8085-4A38-8299-0EB59C2D3C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A63925-8085-4A38-8299-0EB59C2D3C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A63925-8085-4A38-8299-0EB59C2D3C12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

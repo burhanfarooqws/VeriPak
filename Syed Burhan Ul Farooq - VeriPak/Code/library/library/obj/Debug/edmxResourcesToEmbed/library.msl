@@ -36,5 +36,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ExceptionLoggingToDataBase" FunctionName="libraryModel.Store.ExceptionLoggingToDataBase" />
   </EntityContainerMapping>
 </Mapping>

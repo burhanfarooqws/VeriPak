@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="checkin.aspx.cs" Inherits="library.checkin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-<style type="text/css">
+    <style type="text/css">
         .style1
         {
             width: 176px;
@@ -120,7 +120,7 @@
             <td class="style1">
                 &nbsp;</td>
             <td>
-                <asp:Button ID="btnCheckIn" runat="server" onclick="btnCheckOut_Click" 
+                <asp:Button ID="btnCheckIn" runat="server" onclick="btnCheckIn_Click" 
                     Text="Check-In" />
             </td>
             <td>

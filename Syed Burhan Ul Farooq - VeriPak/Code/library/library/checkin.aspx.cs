@@ -18,67 +18,49 @@ namespace library
                 int bookid = Convert.ToInt32(this.hfbookid.Value);
                 book book = db.books.Where<book>(x => x.id == bookid).FirstOrDefault();
                 this.lblbooktitle.Text = book.title;
-                this.imgbook.ImageUrl = book.cover_picture;
-                
-                //if (book.status == "checkout")
-                //{
-                //    lblIsBorrowed.Text = "Book Already Borrowed";
-                //    btnCheckOut.Enabled = false;
-                //}
+                this.imgbook.ImageUrl = book.cover_picture;     
 
-                borrowhistory objBorrowHistory = db.borrowhistories.Where<borrowhistory>(x => x.bookid == bookid).OrderBy(x => x.id).FirstOrDefault();
-                this.txtCheckOutDate.Text = objBorrowHistory.checkout_date.ToShortDateString();
-                this.txtCheckInDate.Text = objBorrowHistory.checkin_date.ToShortDateString();
-                this.txtReturnDate.Text = DateTime.Now.ToShortDateString();
-                this.txtBorrower.Text = objBorrowHistory.borrower;
-                this.txtMobile.Text = objBorrowHistory.mobile;
-                int bDays = checkin.GetBusinessDays(objBorrowHistory.checkout_date, DateTime.Now); 
-                if(bDays > 15)
+                borrowhistory objBorrowHistory = db.borrowhistories.OrderByDescending(u => u.id).FirstOrDefault(); // get the last borrower from history.
+                if (objBorrowHistory != null && book.status == "checkout")
                 {
-                    this.lblMessage.Text = "Penalty of 5 Dhs will be charged for over days."+ "\n" + "You need to pay: " + Math.Abs(bDays - 15) * 5 + " Dhs";
+                    this.txtCheckOutDate.Text = objBorrowHistory.checkout_date.ToShortDateString();
+                    this.txtCheckInDate.Text = objBorrowHistory.checkin_date.ToShortDateString();
+                    this.txtReturnDate.Text = DateTime.Now.ToShortDateString();
+                    this.txtBorrower.Text = objBorrowHistory.borrower;
+                    this.txtMobile.Text = objBorrowHistory.mobile;
+                    int bDays = Rules.GetBusinessDays(objBorrowHistory.checkout_date, DateTime.Now);
+                    if (bDays > 15)
+                    {
+                        this.lblMessage.Text = "Penalty of 5 Dhs will be charged for over days." + "\n" + "You need to pay: " + Math.Abs(bDays - 15) * 5 + " Dhs";
+                    }
                 }
+                else
+                {
+                    this.lblMessage.Text = "Book Information Not Found.";
+                    this.btnCheckIn.Enabled = false;
+                }                
                 
             }
         }
-
-        protected void btnCheckOut_Click(object sender, EventArgs e)
+        
+        protected void btnCheckIn_Click(object sender, EventArgs e)
         {
-
-        }
-
-        public static int GetBusinessDays(DateTime start, DateTime end)
-        {
-            if (start.DayOfWeek == DayOfWeek.Saturday)
+            libraryEntities db = new libraryEntities();
+            int bookid = Convert.ToInt32(this.hfbookid.Value);
+            book objBook = db.books.Where<book>(x => x.id == bookid).FirstOrDefault();
+            if (objBook.status == "checkout")
             {
-                start = start.AddDays(2);
-            }
-            else if (start.DayOfWeek == DayOfWeek.Sunday)
-            {
-                start = start.AddDays(1);
-            }
-
-            if (end.DayOfWeek == DayOfWeek.Saturday)
-            {
-                end = end.AddDays(-1);
-            }
-            else if (end.DayOfWeek == DayOfWeek.Sunday)
-            {
-                end = end.AddDays(-2);
-            }
-
-            int diff = (int)end.Subtract(start).TotalDays;
-
-            int result = diff / 7 * 5 + diff % 7;
-
-            if (end.DayOfWeek < start.DayOfWeek)
-            {
-                return result - 2;
+                objBook.status = "checkin";
+                borrowhistory bh = new borrowhistory();
+                bh = db.borrowhistories.OrderByDescending(u => u.id).FirstOrDefault(); // get the last borrower from history.
+                bh.checkin_date_return = DateTime.Now;
+                db.SaveChanges();
+                lblMessage.Text = "CheckIn Successfull";
             }
             else
             {
-                return result;
+                lblMessage.Text = "Book CheckIn Failed";
             }
         }
-
     }
 }

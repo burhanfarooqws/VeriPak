@@ -26,6 +26,12 @@ namespace library
         {
             // Code that runs when an unhandled error occurs
 
+            // Get the exception object.
+            Exception exc = Server.GetLastError();
+
+            //handle your exception here.
+            ExceptionLogging.SendExcepToDB(exc);
+
         }
 
         void Session_Start(object sender, EventArgs e)

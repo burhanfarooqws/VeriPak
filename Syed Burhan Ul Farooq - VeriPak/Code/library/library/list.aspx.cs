@@ -19,22 +19,25 @@ namespace library
                 
         protected void btndetails_Click(object sender, EventArgs e)
         {
-            if (GridView1.SelectedIndex == -1) return;
-            Response.Redirect("details.aspx?bookid=" + GridView1.SelectedRow.Cells[1].Text);
+            if (string.IsNullOrEmpty(this.hfBookId.Value)) return;
+            Response.Redirect("details.aspx?bookid=" + this.hfBookId.Value);
         }
 
         protected void btncheckin_Click(object sender, EventArgs e)
         {
-            if (GridView1.SelectedIndex == -1) return;
-            Response.Redirect("checkin.aspx?bookid=" + GridView1.SelectedRow.Cells[1].Text);
+            if (string.IsNullOrEmpty(this.hfBookId.Value)) return;
+            Response.Redirect("checkin.aspx?bookid=" + this.hfBookId.Value);
         }
 
         protected void btncheckout_Click(object sender, EventArgs e)
         {
-            if (GridView1.SelectedIndex == -1) return;
-            Response.Redirect("checkout.aspx?bookid=" + GridView1.SelectedRow.Cells[1].Text);
+            if (string.IsNullOrEmpty(this.hfBookId.Value)) return;
+            Response.Redirect("checkout.aspx?bookid=" + this.hfBookId.Value);
         }
 
-        
+        protected void RowSelector_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -11,7 +11,10 @@ namespace library
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!this.Page.User.Identity.IsAuthenticated)
+            {
+                this.NavigationMenu.Visible = false;
+            }
         }
     }
 }

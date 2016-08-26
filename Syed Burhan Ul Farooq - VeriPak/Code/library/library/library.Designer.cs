@@ -143,6 +143,62 @@ namespace library
 
         #endregion
 
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="exceptionMsg">No Metadata Documentation available.</param>
+        /// <param name="exceptionType">No Metadata Documentation available.</param>
+        /// <param name="exceptionSource">No Metadata Documentation available.</param>
+        /// <param name="exceptionURL">No Metadata Documentation available.</param>
+        public int ExceptionLoggingToDataBase(global::System.String exceptionMsg, global::System.String exceptionType, global::System.String exceptionSource, global::System.String exceptionURL)
+        {
+            ObjectParameter exceptionMsgParameter;
+            if (exceptionMsg != null)
+            {
+                exceptionMsgParameter = new ObjectParameter("ExceptionMsg", exceptionMsg);
+            }
+            else
+            {
+                exceptionMsgParameter = new ObjectParameter("ExceptionMsg", typeof(global::System.String));
+            }
+    
+            ObjectParameter exceptionTypeParameter;
+            if (exceptionType != null)
+            {
+                exceptionTypeParameter = new ObjectParameter("ExceptionType", exceptionType);
+            }
+            else
+            {
+                exceptionTypeParameter = new ObjectParameter("ExceptionType", typeof(global::System.String));
+            }
+    
+            ObjectParameter exceptionSourceParameter;
+            if (exceptionSource != null)
+            {
+                exceptionSourceParameter = new ObjectParameter("ExceptionSource", exceptionSource);
+            }
+            else
+            {
+                exceptionSourceParameter = new ObjectParameter("ExceptionSource", typeof(global::System.String));
+            }
+    
+            ObjectParameter exceptionURLParameter;
+            if (exceptionURL != null)
+            {
+                exceptionURLParameter = new ObjectParameter("ExceptionURL", exceptionURL);
+            }
+            else
+            {
+                exceptionURLParameter = new ObjectParameter("ExceptionURL", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("ExceptionLoggingToDataBase", exceptionMsgParameter, exceptionTypeParameter, exceptionSourceParameter, exceptionURLParameter);
+        }
+
+        #endregion
+
     }
 
     #endregion

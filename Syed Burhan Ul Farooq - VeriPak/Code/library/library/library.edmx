@@ -4,33 +4,28 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="libraryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="libraryModelStoreContainer">
-          <EntitySet Name="books" EntityType="libraryModel.Store.books" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="borrowhistory" EntityType="libraryModel.Store.borrowhistory" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="lockbook" EntityType="libraryModel.Store.lockbook" store:Type="Tables" Schema="dbo" />
-        </EntityContainer>
+    <Schema Namespace="libraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="books">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="varchar" Nullable="false" MaxLength="1000" />
-          <Property Name="isbn" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="isbn" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="publish_year" Type="int" Nullable="false" />
           <Property Name="price" Type="money" Nullable="false" />
-          <Property Name="cover_picture" Type="varchar" Nullable="false" />
-          <Property Name="status" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="cover_picture" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="borrowhistory">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="bookid" Type="int" Nullable="false" />
-          <Property Name="borrower" Type="varchar" Nullable="false" MaxLength="250" />
-          <Property Name="mobile" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="nationalid" Type="varchar" Nullable="false" MaxLength="11" />
+          <Property Name="borrower" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nationalid" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="checkout_date" Type="datetime" Nullable="false" />
           <Property Name="checkin_date" Type="datetime" Nullable="false" />
           <Property Name="checkin_date_return" Type="datetime" />
@@ -40,8 +35,19 @@
             <PropertyRef Name="bookid" />
           </Key>
           <Property Name="bookid" Type="int" Nullable="false" />
-          <Property Name="username" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="username" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <Function Name="ExceptionLoggingToDataBase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ExceptionMsg" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ExceptionType" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ExceptionSource" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ExceptionURL" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="libraryModelStoreContainer">
+          <EntitySet Name="books" EntityType="Self.books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="borrowhistory" EntityType="Self.borrowhistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lockbook" EntityType="Self.lockbook" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -50,6 +56,12 @@
           <EntitySet Name="books" EntityType="libraryModel.book" />
           <EntitySet Name="borrowhistories" EntityType="libraryModel.borrowhistory" />
           <EntitySet Name="lockbooks" EntityType="libraryModel.lockbook" />
+          <FunctionImport Name="ExceptionLoggingToDataBase">
+            <Parameter Name="ExceptionMsg" Mode="In" Type="String" />
+            <Parameter Name="ExceptionType" Mode="In" Type="String" />
+            <Parameter Name="ExceptionSource" Mode="In" Type="String" />
+            <Parameter Name="ExceptionURL" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="book">
           <Key>
@@ -72,9 +84,9 @@
           <Property Type="String" Name="borrower" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="mobile" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="nationalid" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="checkout_date" Nullable="false" />
-          <Property Type="DateTime" Name="checkin_date" Nullable="false" />
-          <Property Type="DateTime" Name="checkin_date_return" />
+          <Property Type="DateTime" Name="checkout_date" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="checkin_date" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="checkin_date_return" Precision="3" />
         </EntityType>
         <EntityType Name="lockbook">
           <Key>
@@ -124,6 +136,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ExceptionLoggingToDataBase" FunctionName="libraryModel.Store.ExceptionLoggingToDataBase" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -140,6 +153,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
